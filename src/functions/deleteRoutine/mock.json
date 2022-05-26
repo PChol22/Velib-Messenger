@@ -1,0 +1,9 @@
+{
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body" : {
+    "schedule": "18h20",
+    "email": "test@test.com"
+  } 
+}

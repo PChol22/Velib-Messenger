@@ -1,0 +1,12 @@
+{
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body" : {
+    "lat": 48,
+    "lon": 2,
+    "hours": 10,
+    "minutes": 30,
+    "email": "test@test.com"
+  } 
+}
