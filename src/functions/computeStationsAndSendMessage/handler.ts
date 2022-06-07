@@ -1,6 +1,6 @@
 import { middyfy } from '@libs/lambda';
 import fetch from 'node-fetch';
-import { PublishCommand, SNSClient } from '@aws-sdk/client-sns'
+import { PublishCommand, SNSClient } from '@aws-sdk/client-sns';
 
 type StationInformation = {
   station_id: number,
@@ -100,8 +100,7 @@ const computeStationsAndSendMessage = async (event: { Records: { body: string }[
       }
     });
   
-    const result = await client.send(command);
-    console.log(result);
+    await client.send(command);
   }
 };
 

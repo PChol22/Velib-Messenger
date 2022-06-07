@@ -1,13 +1,13 @@
 import schema from './schema';
 import { handlerPath } from '@libs/handler-resolver';
-import { dynamoDBWritePolicy } from 'src/ressources/policies';
-import { tableName } from 'src/ressources';
+import { dynamoDBWritePolicy, snsSubscribePolicy } from 'src/ressources/policies';
+import { tableName, topicArn } from 'src/ressources';
 
 export default {
   handler: `${handlerPath(__dirname)}/handler.main`,
   timeout: 10,
-  iamRoleStatements: [dynamoDBWritePolicy],
-  environment: { ROUTINES_TABLE_NAME : tableName },
+  iamRoleStatements: [dynamoDBWritePolicy, snsSubscribePolicy],
+  environment: { ROUTINES_TABLE_NAME : tableName, SMS_TOPIC_ARN: topicArn },
   events: [
     {
       http: {

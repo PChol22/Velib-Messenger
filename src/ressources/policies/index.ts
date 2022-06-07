@@ -6,6 +6,12 @@ export const snsPublishPolicy = {
   Action: ['sns:Publish'],
 };
 
+export const snsSubscribePolicy = {
+  Effect: 'Allow',
+  Resource: [topicArn],
+  Action: ['sns:Subscribe'],
+};
+
 export const dynamoDBReadPolicies = {
   Effect: 'Allow',
   Resource: [tableArn],
