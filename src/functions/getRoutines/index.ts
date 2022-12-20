@@ -17,6 +17,9 @@ export default {
         method: 'get',
         path: 'routines/{email}',
         request: {},
+        cors: {
+          origin: '*'
+        }
       },
     },
   ],

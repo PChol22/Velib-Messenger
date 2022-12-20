@@ -37,10 +37,14 @@ const getRoutines = async (event) => {
       schedule,
     }));
   
-  return formatJSONResponse({
-    status: 200,
-    message: result,
-  });
+  return {
+    statusCode: 200,
+    body: JSON.stringify(result),
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+    },
+  }
 };
 
 export const main = middyfy(getRoutines);

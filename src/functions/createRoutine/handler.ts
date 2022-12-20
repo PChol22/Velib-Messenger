@@ -1,6 +1,7 @@
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
+import { SNSClient, SubscribeCommand } from '@aws-sdk/client-sns';
 import { marshall } from '@aws-sdk/util-dynamodb';
 
 const createRoutine = async (event: { body: {
@@ -30,11 +31,31 @@ const createRoutine = async (event: { body: {
   });
 
   const result = await client.send(putItemCommand);
-  
-  return formatJSONResponse({
-    status: 200,
-    message: result,
+
+  const clientSNS = new SNSClient({});
+  const subscribeCommand = new SubscribeCommand({
+    TopicArn: process.env.SMS_TOPIC_ARN,
+    Protocol: 'email',
+    Endpoint: email,
+    Attributes: {
+      FilterPolicy: JSON.stringify({
+        email: [
+          email
+        ],
+      }),
+    },
   });
+
+  const r = await clientSNS.send(subscribeCommand);
+  
+  return {
+    statusCode: 201,
+    body: JSON.stringify(r),
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+    },
+  }
 };
 
 export const main = middyfy(createRoutine);

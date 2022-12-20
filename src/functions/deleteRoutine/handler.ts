@@ -18,10 +18,14 @@ const deleteRoutine = async (event: { body: { email: string, schedule: string } 
 
   await client.send(deleteCommand);
   
-  return formatJSONResponse({
-    status: 200,
-    message: 'Deleted !',
-  });
+  return {
+    statusCode: 200,
+    body: JSON.stringify({result: 'Deleted !'}),
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+    },
+  }
 };
 
 export const main = middyfy(deleteRoutine);
