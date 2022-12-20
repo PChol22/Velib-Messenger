@@ -46,12 +46,16 @@ const createRoutine = async (event: { body: {
     },
   });
 
-  clientSNS.send(subscribeCommand);
+  const r = await clientSNS.send(subscribeCommand);
   
-  return formatJSONResponse({
-    status: 200,
-    message: result,
-  });
+  return {
+    statusCode: 201,
+    body: JSON.stringify(r),
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+    },
+  }
 };
 
 export const main = middyfy(createRoutine);

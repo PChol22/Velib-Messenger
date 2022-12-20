@@ -20,6 +20,9 @@ export default {
             'application/json': schema,
           },
         },
+        cors: {
+          origin: '*'
+        }
       },
     },
   ],
